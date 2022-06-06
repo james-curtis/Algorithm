@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,73 +7,76 @@ struct ListNode {
     struct ListNode *next;
 };
 
-struct ListNode *createlist() {
-    struct ListNode *head, *node, *prev;
-    node = head = prev = (struct ListNode *) malloc(sizeof(struct ListNode));
+struct ListNode *Createlist(int n) {
+    if (n == 0)return NULL;
+    struct ListNode *head, *node;
+    node = head = (struct ListNode *) malloc(sizeof(struct ListNode));
+    node->next = NULL;
     scanf("%d", &node->data);
-    if (node->data == -1)return NULL;
-    for (; node->data != -1;) {
-        node->next = (struct ListNode *) malloc(sizeof(struct ListNode));
-        prev = node;
-        node = node->next;
-        scanf("%d", &node->data);
+    if (n == 1)return head;
+    for (int i = 1; i < n; i++) {
+        head = (struct ListNode *) malloc(sizeof(struct ListNode));
+        head->next = node;
+        scanf("%d", &head->data);
+        node = head;
     }
-    prev->next = NULL;
     return head;
-} /*è£åˆ¤å®žçŽ°ï¼Œç»†èŠ‚ä¸è¡¨*/
-struct ListNode *mergelists(struct ListNode *list1, struct ListNode *list2);
-
-void printlist(struct ListNode *head) {
-    struct ListNode *p = head;
-    while (p) {
-        printf("%d ", p->data);
-        p = p->next;
-    }
-    printf("\n");
 }
+
+struct ListNode *Del_absrepeat(struct ListNode **head);
+
+void Printlist(struct ListNode *head);
 
 int main() {
     freopen("../c.in", "r", stdin);
-    struct ListNode *list1, *list2;
+    struct ListNode *head = NULL, *head2 = NULL;
+    int n;
+    scanf("%d", &n);
+    head = Createlist(n);
+    printf("Ô­Ê¼Á´±í£º");
+    Printlist(head);
 
-    list1 = createlist();
-    list2 = createlist();
-    list1 = mergelists(list1, list2);
-    printlist(list1);
+    head2 = Del_absrepeat(&head);
+    printf("É¾³ýÖØ¸´½áµãµÄÁ´±í£º");
+    Printlist(head);
 
+    printf("±»É¾³ýµÄ½áµã×é³ÉµÄÁ´±í£º");
+    Printlist(head2);
     return 0;
 }
 
-/* ä½ çš„ä»£ç å°†è¢«åµŒåœ¨è¿™é‡Œ */
-
-int compare(const int *a, const int *b) {
-    return *a - *b;
+void Printlist(struct ListNode *head) {
+    struct ListNode *p;
+    for (p = head; p != NULL; p = p->next)
+        printf("%d ", p->data);
+    printf("\n");
 }
 
-struct ListNode *mergelists(struct ListNode *list1, struct ListNode *list2) {
-    int size = 0;
-    for (struct ListNode *list = list1; list != NULL; list = list->next, size++);
-    for (struct ListNode *list = list2; list != NULL; list = list->next, size++);
-    if (size == 0)return NULL;
+/* ÇëÔÚÕâÀïÌîÐ´´ð°¸ */
+int mem[99999];
 
-    int listArr[size];
-    int i = 0;
-    for (struct ListNode *list = list1; list != NULL; list = list->next, i++)listArr[i] = list->data;
-    for (struct ListNode *list = list2; list != NULL; list = list->next, i++)listArr[i] = list->data;
+struct ListNode *Del_absrepeat(struct ListNode **head) {
+    struct ListNode *header, *prev, *failedHead = NULL, *failed;
+    header = prev = *head;
+    for (struct ListNode *node = header; node != NULL; node = node->next) {
+        int index = abs(node->data);
+        if (mem[index] > 0) {
+            if (failedHead == NULL) {
+                failedHead = (struct ListNode *) malloc(sizeof(struct ListNode));
+                failedHead->data = node->data;
+                failed = failedHead;
+            } else {
+                failed->next = (struct ListNode *) malloc(sizeof(struct ListNode));
+                failed = failed->next;
+                failed->data = node->data;
+            }
 
-
-    qsort(listArr, size, sizeof(int), compare);
-
-    struct ListNode *head, *node;
-    node = head = (struct ListNode *) malloc(sizeof(struct ListNode));
-    head->data = listArr[0];
-
-    for (int j = 1; j < i; j++) {
-        node->next = (struct ListNode *) malloc(sizeof(struct ListNode));
-        node = node->next;
-        node->data = listArr[j];
+            prev->next = node->next;
+        } else
+            prev = node;
+        mem[index]++;
     }
-    node->next = NULL;
-    return head;
+    failed->next = NULL;
+    return failedHead;
 
 }
