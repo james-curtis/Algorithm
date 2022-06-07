@@ -32,7 +32,7 @@ void printlist(struct ListNode *head) {
 }
 
 int main() {
-    freopen("../c.in", "r", stdin);
+    //freopen("../c.in", "r", stdin);
     struct ListNode *list1, *list2;
 
     list1 = createlist();
