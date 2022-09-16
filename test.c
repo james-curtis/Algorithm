@@ -1,78 +1,450 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
+#include <windows.h>
+#include <string.h>
 
-struct ListNode {
-    int data;
-    struct ListNode *next;
-};
+typedef struct Student {
+    char name[100]; //ÐÕÃû
+    char num[100];  //Ñ§ºÅ
+    char sex;//ÐÔ±ð (w´ú±íÅ®Éúm´ú±íÄÐÉú)
+    int age;//ÄêÁä
+    int score;//³É¼¨
+} stu;
+typedef struct LNode {
+    stu data;
+    struct LNode *next;
+} LinkList;
 
-struct ListNode *createlist() {
-    struct ListNode *head, *node, *prev;
-    node = head = prev = (struct ListNode *) malloc(sizeof(struct ListNode));
-    scanf("%d", &node->data);
-    if (node->data == -1)return NULL;
-    for (; node->data != -1;) {
-        node->next = (struct ListNode *) malloc(sizeof(struct ListNode));
-        prev = node;
-        node = node->next;
-        scanf("%d", &node->data);
+char nam[100];//Ãû×Ö
+char nu[100];//Ñ§ºÅ
+char s;//ÐÔ±ð
+int ag;//ÄêÁä
+int sc;//³É¼¨
+
+void welocome()//µÇÂ½½çÃæ
+{
+    system("color b1");
+    printf("````````````````````````````````````````````````````````````````````````````````");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("  ***********************  »¶Ó­µÇÂ¼Ñ§ÉúÐÅÏ¢¹ÜÀíÆ½Ì¨ *************************  \n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("````````````````````````````````````````````````````````````````````````````````");
+}
+
+void menu()//¹¦ÄÜ²Ëµ¥
+{
+    system("color e3");
+    printf("    |________________________________________________|\n");
+    printf("    |                                                |\n");
+    printf("    |                Ñ§ÉúÐÅÏ¢¹ÜÀíÏµÍ³                |\n");
+    printf("    |                                                |\n");
+    printf("    |               0¡¢ÍË³öÏµÍ³                      |\n");
+    printf("    |               1¡¢Ôö¼ÓÑ§ÉúÐÅÏ¢                  |\n");
+    printf("    |               2¡¢É¾³ýÑ§ÉúÐÅÏ¢                  |\n");
+    printf("    |               3¡¢ÐÞ¸ÄÑ§ÉúÐÅÏ¢                  |\n");
+    printf("    |               4¡¢²éÕÒÑ§ÉúµÄÐÅÏ¢                |\n");
+    printf("    |               5¡¢°´ÕÕÑ§Éú³É¼¨ÅÅÐò              |\n");
+    printf("    |               6¡¢ä¯ÀÀÈ«²¿Ñ§ÉúÐÅÏ¢              |\n");
+    printf("    |               7¡¢±£´æÑ§ÉúÐÅÏ¢µ½ÎÄ¼þ            |\n");
+    printf("    |                                                |\n");
+    printf("    |________________________________________________|\n");
+    return;
+}
+
+void InitList(LinkList *
+
+&L)//³õÊ¼»¯Á´±í
+{
+L = (LinkList *) malloc(sizeof(LinkList));
+L->
+next = NULL;
+}
+
+void ListInsert(LinkList *
+
+&L,
+LinkList *p
+)//²åÈëÐÂµÄ½Úµã
+{
+LinkList *q = NULL;
+q = L;
+p->
+next = q->next;
+q->
+next = p;
+}
+
+void addstu(LinkList *
+
+&L)//Ôö¼ÓÐÂµÄÑ§Éú
+{
+system("color f2");
+printf("ÇëÊäÈëÑ§ÉúµÄÐÅÏ¢£º\n");
+printf("Ñ§ºÅ£º");
+scanf("%s",nu);
+LinkList *q = L->next;
+while(q!=NULL)
+{
+if(
+strcmp(q
+->data.num,nu)==0)//ÅÐ¶ÏÊÇ·ñ´æÔÚ
+{
+printf("¸ÃÉúÒÑ´æÔÚ\n");
+break;
+}
+q = q->next;
+}
+if(q==NULL)
+{
+LinkList *p;
+InitList(p);
+strcpy(p
+->data.num,nu);
+printf("ÐÕÃû£º");
+scanf("%s",nam);
+strcpy(p
+->data.name,nam);
+printf("ÐÔ±ð£º£¨wÎªÄÐ mÎªÅ®£©");
+scanf(" %c",&s);
+p->data.
+sex = s;
+printf("ÄêÁä£º");
+scanf("%d",&ag);
+p->data.
+age = ag;
+printf("×Ü³É¼¨£º");
+scanf("%d",&sc);
+while(sc>100||sc<0){
+printf("ÊäÈëÓÐÎó£¬ÇëÖØÐÂÊäÈë\n");
+scanf("%d",&sc);
+}
+p->data.
+score = sc;
+ListInsert(L, p
+);
+
+}
+}
+
+void deletestu(LinkList *L)//É¾³ýÑ§Éú
+{
+    system("color f4");
+    printf("ÇëÊäÈëÄúÒªÉ¾³ýµÄÑ§ÉúµÄÑ§ºÅ:");
+    scanf("%s", nu);
+    //ÅÐ¶Ï
+    LinkList *p, *pre;
+    if (L->next == NULL) {
+        printf("»¹Ã»ÓÐÑ§ÉúÐÅÏ¢,ÇëÔö¼ÓÑ§ÉúÐÅÏ¢\n");
+        return;
     }
-    prev->next = NULL;
-    return head;
-} /*è£åˆ¤å®žçŽ°ï¼Œç»†èŠ‚ä¸è¡¨*/
-struct ListNode *mergelists(struct ListNode *list1, struct ListNode *list2);
-
-void printlist(struct ListNode *head) {
-    struct ListNode *p = head;
+    pre = L;
+    p = pre->next;
+    int judge = 0;
     while (p) {
-        printf("%d ", p->data);
+        if (strcmp(p->data.num, nu) == 0) {
+            judge = 1;
+            pre->next = p->next;
+            free(p);
+            printf("É¾³ýÑ§Éú³É¹¦\n");
+            break;
+        }
+        pre = p;
         p = p->next;
     }
-    printf("\n");
+    if (judge == 0)
+        printf("¸ÃÉú²»´æÔÚ\n");
+}
+
+void changestu(LinkList *L)//¸Ä±äÑ§ÉúÐÅÏ¢
+{
+    int judge = 1;
+    system("color e4");
+    printf("ÇëÊäÈëÄúÒªÐÞ¸ÄÑ§ÉúµÄÑ§ºÅ£º\n");
+    scanf("%s", nu);
+    LinkList *q = L->next;
+    while (q != NULL) {
+        if (strcmp(q->data.num, nu) == 0) {
+            judge = 1;
+            printf("ÇëÊäÈëÄúÒªÐÞ¸ÄµÄÐÅÏ¢Ñ¡Ïî£º1.ÐÕÃû 2. ×Ü³É¼¨  3.ÄêÁä   \n");
+            int n;
+            scanf("%d", &n);
+            switch (n) {
+                case 1:
+                    printf("ÇëÊäÈëÄúÒªÐÞ¸ÄµÄÃû×Ö£º");
+                    scanf("%s", nam);
+                    printf("ÐÞ¸ÄµÄÃû×ÖÎª£º%s\n", nam);
+                    strcpy(q->data.name, nam);
+                    printf("ÐÞ¸ÄÃû×Ö³É¹¦£¡\n");
+                    break;
+                case 2:
+                    printf("ÇëÊäÈëÄúÒªÐÞ¸ÄµÄ×Ü³É¼¨");
+                    scanf("%d", &sc);
+                    printf("ÐÞ¸ÄµÄ×Ü³É¼¨Îª£º%d\n", sc);
+                    q->data.score = sc;
+                    printf("ÐÞ¸Ä×Ü³É¼¨³É¹¦£¡\n");
+
+                    break;
+                case 3:
+                    printf("ÇëÊäÈëÄúÒªÐÞ¸ÄµÄÄêÁä£º");
+                    scanf("%d", &ag);
+                    printf("ÐÞ¸ÄµÄÄêÁäÎª£º%d\n", ag);
+                    q->data.age = ag;
+                    printf("ÐÞ¸ÄÄêÁä³É¹¦£¡\n");
+                    break;
+                default :
+                    printf("ÇëÊäÈëÕýÈ·µÄÑ¡Ïî\n");
+                    break;
+            }
+        }
+        q = q->next;
+    }
+    if (judge == 0) {
+        printf("¸ÃÉú²»´æÔÚ\n");
+    }
+}
+
+void findstu(LinkList *L)//°´Ñ§ºÅ»òÕßÐÕÃû²éÕÒÑ§Éú²¢Êä³ö¸ÃÉúÐÅÏ¢
+{
+    int flag;
+    system("color b1");
+    printf("1.°´Ñ§ºÅ²éÑ¯£º\n");
+    printf("2.°´ÐÕÃû²éÑ¯£º\n");
+    printf("ÇëÊäÈë²éÑ¯·½Ê½£º");
+    scanf("%d", &flag);
+    if (flag == 1) {
+        printf("ÇëÊäÈë¸ÃÉúÑ§ºÅ£º");
+        scanf("%s", nu);
+        //ÅÐ¶Ï
+        LinkList *q = L->next;
+        while (q != NULL) {
+            if (strcmp(q->data.num, nu) == 0) {
+                printf("ÐÕÃû£º%s\n", q->data.name);
+                printf("Ñ§ºÅ£º%s\n", q->data.num);
+                printf("ÐÔ±ð£º%c\n", q->data.sex);
+                printf("ÄêÁä£º%d\n", q->data.age);
+                printf("×Ü³É¼¨£º%d\n", q->data.score);
+                break;
+            }
+            q = q->next;
+        }
+        if (q == NULL)
+            printf("¸ÃÉú²»´æÔÚ\n");
+    } else {
+        printf("ÇëÊäÈë¸ÃÉúÐÕÃû£º");
+        scanf("%s", nam);
+        LinkList *q = L->next;
+        while (q != NULL) {
+            if (strcmp(q->data.name, nam) == 0) {
+                printf("ÐÕÃû£º%s\n", q->data.name);
+                printf("Ñ§ºÅ£º%s\n", q->data.num);
+                printf("ÐÔ±ð£º%c\n", q->data.sex);
+                printf("ÄêÁä£º%d\n", q->data.age);
+                printf("×Ü³É¼¨£º%d\n", q->data.score);
+                break;
+            }
+            q = q->next;
+        }
+        if (q == NULL)
+            printf("¸ÃÉú²»´æÔÚ\n");
+    }
+}
+
+void display(LinkList *
+
+&L)//ä¯ÀÀÈ«²¿Ñ§ÉúÐÅÏ¢
+{
+LinkList *q = L->next;
+if(q==NULL)
+{
+printf("»¹Ã»ÓÐÑ§ÉúÐÅÏ¢£¬ÇëÔö¼ÓÑ§ÉúÐÅÏ¢\n");
+return;
+}
+while(q)
+{
+system("color c0");
+printf(" Ñ§ºÅ£º%s Ãû×Ö£º%s ÄêÁä£º%d ÐÔ±ð£º%c  ×Ü³É¼¨£º%d \n",q->data.num,q->data.name,q->data.age,q->data.sex,
+q->data.score);
+q = q->next;
+}
+}
+
+void paixu(LinkList *L)//°´³É¼¨ÅÅÐòÅÅÐò ²¢Êä³öÅÅÐòºóµÄ½á¹û
+{
+    system("color f9");
+    LinkList *q, *p, *r = L->next;
+    //ÅÐ¶Ï
+    if (r == NULL) {
+        printf("»¹Ã»ÓÐÑ§ÉúÐÅÏ¢£¬ÇëÔö¼ÓÑ§ÉúÐÅÏ¢\n");
+        return;
+    }
+    while (r) //Á½²ãÑ­»·Íê³ÉÅÅÐò
+    {
+        p = r;
+        q = r->next;
+        LinkList *tmp;//ÓÃÓÚÅÅÐòÊ±ÔÝ´æ½Úµã
+        InitList(tmp);
+        while (q) {
+            if (q->data.score > p->data.score) {
+                /*ÏÈ¸´ÖÆq½áµãÐÅÏ¢µ½tmp*/
+                strcpy(tmp->data.num, q->data.num);
+                strcpy(tmp->data.name, q->data.name);
+                tmp->data.sex = q->data.sex;
+                tmp->data.age = q->data.age;
+                tmp->data.score = q->data.score;
+                /*ÔÙ¸´ÖÆp½áµãÐÅÏ¢µ½q*/
+                strcpy(q->data.num, p->data.num);
+                strcpy(q->data.name, p->data.name);
+                q->data.sex = p->data.sex;
+                q->data.age = p->data.age;
+                q->data.score = p->data.score;
+                /*×îºó¸´ÖÆexchange½áµãÐÅÏ¢µ½p*/
+                strcpy(p->data.num, tmp->data.num);
+                strcpy(p->data.name, tmp->data.name);
+                p->data.sex = tmp->data.sex;
+                p->data.age = tmp->data.age;
+                p->data.score = tmp->data.score;
+            }
+            q = q->next;
+        }
+        r = r->next;
+    }
+
+    printf("ÅÅÐòºóµÄÑ§ÉúÐÅÏ¢ÊÇ£º\n");
+    display(L);
+}
+
+void saveStuDentFile(LinkList *
+
+&L)//±£´æÑ§ÉúÐÅÏ¢µ½ÎÄ¼þ
+{
+FILE *fp;
+LinkList *p = L->next;
+if((
+fp = fopen("student.txt", "w")
+)==NULL)// ÒÔ¿ÉÐ´µÄ·½Ê½´ò¿ªµ±Ç°Ä¿Â¼ÏÂµÄ.txt
+{
+printf("²»ÄÜ´ò¿ª´ËÎÄ¼þ£¬Çë°´ÈÎÒâ¼üÍË³ö\n");
+exit(1);
+}
+while(p)
+{
+fprintf(fp,
+"%s  %s  %c  %d  %d  \n",p->data.num,p->data.name,p->data.sex,p->data.age,p->data.score);
+p = p->next;
+printf("±£´æ³É¹¦\n");
+}
+fclose(fp);
+}
+
+void readStuDentput(LinkList *
+
+&L) //ÔËÐÐÇ°°ÑÎÄ¼þÄÚÈÝ¶ÁÈ¡µ½µçÄÔÄÚ´æ
+{
+FILE *fp;
+fp = fopen("student.txt", "rb"); //ÒÔÖ»¶Á·½Ê½´ò¿ªµ±Ç°Ä¿Â¼ÏÂµÄ.txt
+if(fp==NULL)
+{
+printf("²»´æÔÚ´ò¿ªÎÄ¼þ\n");
+exit(0);                   //ÖÕÖ¹³ÌÐò
+}
+int i = 0;
+while(!
+feof(fp)
+)
+{
+char nu[100];//Ñ§ºÅ
+char nam[100];//Ãû×Ö
+char s;//ÐÔ±ð
+int ag;//ÄêÁä
+int sc;//³É¼¨
+fscanf(fp,
+" %s %s %c %d %d",nu,nam,&s,&ag,&sc);
+i++;
+}
+fclose(fp);
+FILE *FP;
+FP = fopen("student.txt", "rb"); //ÒÔÖ»¶Á·½Ê½´ò¿ªµ±Ç°Ä¿Â¼ÏÂµÄ.txt
+if(FP==NULL)
+{
+printf("ÎÞ·¨´ò¿ªÎÄ¼þ\n");
+exit(0); //ÖÕÖ¹³ÌÐò
+}
+int b = i - 1;
+int j = 1;
+while(!
+feof(FP)
+)
+{
+fscanf(FP,
+"%s %s %c %d %d",nu,nam,&s,&ag,&sc);
+LinkList *n = (LinkList *) malloc(sizeof(LinkList));
+strcpy(n
+->data.num,nu);//°ÑºóÕßµÄÄÚÈÝ¿½±´µ½Ç°ÕßÖÐ
+strcpy(n
+->data.name,nam);//°ÑºóÕßµÄÄÚÈÝ¿½±´µ½Ç°ÕßÖÐ
+n->data.
+sex = s;
+n->data.
+age = ag;
+n->data.
+score = sc;
+ListInsert(L, n
+);//²åÈëÐÂµÄ½Úµã
+n = n->next;
+if(j==b)
+break;
+j++;
+}
+fclose(FP);    //¹Ø±ÕÎÄ¼þ
 }
 
 int main() {
-    //freopen("../c.in", "r", stdin);
-    struct ListNode *list1, *list2;
+    system("cls");//ÇåÆÁ
+    welocome();//µÇÂ½½çÃæ
+    Sleep(3000);//ÑÓ»º3Ãë
+    LinkList *L;
+    InitList(L);
+    readStuDentput(L);//ÔËÐÐÇ°°ÑÎÄ¼þÄÚÈÝ¶ÁÈ¡µ½µçÄÔ
+    int a;
+    int choose;
+    while (1) {
+        printf("ÇëÊäÈëÄúÒªÑ¡ÔñµÄ¹¦ÄÜ¼ü£º\n");
+        menu();//¹¦ÄÜ²Ëµ¥
+        scanf("%d", &choose);
+        switch (choose) {
+            case 0://ÍË³ö
+                printf("Ð»Ð»Ê¹ÓÃ£¡»¶Ó­ÏÂ´Î¹âÁÙ");
+                exit(0);
+            case 1://Ôö¼ÓÑ§ÉúÐÅÏ¢
+                addstu(L);//Ôö¼ÓÐÂµÄÑ§Éú
+                break;
+            case 2://É¾³ýËùÓÐÑ§ÉúÐÅÏ¢
+                deletestu(L);//É¾³ýÑ§Éú
+                break;
+            case 3://¸Ä±ä¸öÑ§ÉúµÄÐÅÏ¢
+                changestu(L);//¸Ä±äÑ§ÉúÐÅÏ¢
+                break;
+            case 4://²éÕÒÄ³¸öÑ§ÉúµÄÐÅÏ¢
+                findstu(L);//°´Ñ§ºÅ²éÕÒÑ§Éú²¢Êä³ö¸ÃÉúÐÅÏ¢
+                break;
 
-    list1 = createlist();
-    list2 = createlist();
-    list1 = mergelists(list1, list2);
-    printlist(list1);
-
-    return 0;
-}
-
-/* ä½ çš„ä»£ç å°†è¢«åµŒåœ¨è¿™é‡Œ */
-
-int compare(const int *a, const int *b) {
-    return *a - *b;
-}
-
-struct ListNode *mergelists(struct ListNode *list1, struct ListNode *list2) {
-    int size = 0;
-    for (struct ListNode *list = list1; list != NULL; list = list->next, size++);
-    for (struct ListNode *list = list2; list != NULL; list = list->next, size++);
-    if (size == 0)return NULL;
-
-    int listArr[size];
-    int i = 0;
-    for (struct ListNode *list = list1; list != NULL; list = list->next, i++)listArr[i] = list->data;
-    for (struct ListNode *list = list2; list != NULL; list = list->next, i++)listArr[i] = list->data;
-
-
-    qsort(listArr, size, sizeof(int), compare);
-
-    struct ListNode *head, *node;
-    node = head = (struct ListNode *) malloc(sizeof(struct ListNode));
-    head->data = listArr[0];
-
-    for (int j = 1; j < i; j++) {
-        node->next = (struct ListNode *) malloc(sizeof(struct ListNode));
-        node = node->next;
-        node->data = listArr[j];
+            case 5:// ¶ÔÑ§Éú³É¼¨½øÐÐÅÅÐò
+                paixu(L);
+                break;
+            case 6://Êä³öËùÓÐÑ§ÉúµÄÐÅÏ¢
+                display(L);
+                break;
+            case 7://±£´æÑ§ÉúÐÅÏ¢µ½ÎÄ¼þ
+                saveStuDentFile(L);
+                break;
+            default:
+                printf("ÇëÊäÈëÕýÈ·µÄÑ¡Ôñ\n");
+                break;
+        }
     }
-    node->next = NULL;
-    return head;
-
 }
