@@ -1,269 +1,170 @@
 #include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
-
-struct stu {
-    char num[10];
-    char qidian[20];
-    char zhongdian[20];
-    char startime[10];
-    char endtime[10];
-    int count;
-};
-struct stu st[20];
-
-int menu() {
-    int n;
-    printf("****************************\n\n");
-    printf("\t1 luru\n");
-    printf("\t2 xianshi\n");
-    printf("\t3 paixu\n");
-    printf("\t4 tianjia\n");
-    printf("\t5 shanchu\n");
-    printf("\t6 baochun\n");
-    printf("\t7 chaxun\n");
-    printf("\t0 tuichu\n");
-    printf("\n****************************\n");
-    printf("enter your choice:");
-    scanf("%d", &n);
-    return n;
+#include "a.cpp"
+#include<malloc.h>
+//typedef int DataType;
+//typedef struct linknode
+//{
+//	DataType data;
+//	struct linknode *next;
+//}LinkList;
+//LinkList *head;
+//head=(LinkList*)malloc(sizeof(LinkList));
+void Menu()
+{
+    printf("\n         Ë³Ðò±íµÄ¸÷ÖÖ²Ù×÷");
+    printf("\n========================================");
+    printf("\n|       1¡ª¡ª¡ª¡ª½¨Á¢Ë³Ðò±íla£¨Í·²å·¨£©    |");
+    printf("\n|       2¡ª¡ª¡ª¡ª½¨Á¢Ë³Ðò±íla£¨Î²²å·¨£©    |");
+//	printf("\n|       3¡ª¡ª¡ª¡ªÇóË³Ðò±íµÄ³¤¶È            |");
+    printf("\n|       4¡ª¡ª¡ª¡ª°´Î»ÖÃ²éÕÒÔªËØ            |");
+    printf("\n|       5¡ª¡ª¡ª¡ª°´ÔªËØÖµ²éÕÒÆäÔÚ±íÖÐµÄÎ»ÖÃ|");
+    printf("\n|       6¡ª¡ª¡ª¡ª²åÈëÔªËØ                  |");
+    printf("\n|       7¡ª¡ª¡ª¡ªÉ¾³ýÔªËØ                  |");
+    printf("\n|       8¡ª¡ª¡ª¡ª½¨Á¢Ë³Ðò±ílb£¨Í·²å·¨£©    |");
+    printf("\n|       9¡ª¡ª¡ª¡ª½¨Á¢Ë³Ðò±ílb£¨Î²²å·¨£©    |");
+    printf("\n|       3¡ª¡ª¡ª¡ªºÏ²¢la,lbÎªÁ´±ílc        |");
+    printf("\n|       0¡ª¡ª¡ª¡ª·µ»Ø                      |");
+    printf("\n========================================");
+    printf("\nÇëÊäÈë²Ëµ¥ºÅ(0-10):\n");
 }
-
-int input(int m) {
-    int i, n;
-    printf("input n:");
-    scanf("%d", &n);
-    printf("num    qidian     zhongdian      startime       endtime    count\n");
-    for (i = m; i < m + n; i++) {
-        scanf("%s%s%s%s%s%d", &st[i].num, &st[i].qidian, &st[i].zhongdian, &st[i].startime, &st[i].endtime,
-              &st[i].count);
-    }
-    return m + n;
-}
-
-void disp(int m) {
-    int i;
-    for (i = 0; i < m; i++) {
-        printf("num    qidian     zhongdian      startime       endtime    count\n");
-        printf("%s %s %s %s %s %d\n", st[i].num, st[i].qidian, st[i].zhongdian, st[i].startime, st[i].endtime,
-               st[i].count);
-    }
-}
-
-void sort(int m) {
-    int i, j;
-    struct stu stt;
-    for (i = 1; i < m; i++)
-        for (j = 0; j < m - i; j++) {
-            if (st[j].num < st[j + 1].num) {
-                stt = st[j];
-                st[j] = st[j + 1];
-                st[j + 1] = stt;
-            }
-        }
-
-}
-
-int del(int m) {
-    char c, num[20], qidian[20], zhongdian[20];
-    int i, j, n = m;
-    getchar();
-    printf("a.	æŒ‰ç­æ¬¡åˆ é™¤  \n");
-    printf("b.	æŒ‰å‡ºå‘åœ°åˆ é™¤\n");
-    printf("c.	æŒ‰ç›®çš„åœ°åˆ é™¤\n");
-    printf("è¯·è¾“å…¥ä½ çš„é€‰æ‹©ï¼š");
-    scanf("%c", &c);
-    if (c == 'a') {
-        printf("ç­æ¬¡ï¼š");
-        scanf("%s", num);
-        for (i = 0; i < m; i++)
-            if (strcat(st[i].num, num) == 0) {
-                printf("è¦åˆ é™¤çš„é¡¹ä¸ºï¼š%s%s%s%s%s%d", &st[i].num, &st[i].qidian, &st[i].zhongdian, &st[i].startime,
-                       &st[i].endtime, &st[i].count);
-                printf("ä½ ç¡®å®šè¦åˆ é™¤å—ï¼Ÿï¼ˆåˆ é™¤è¿‡åŽï¼Œæ•°æ®å°†ä¸å¯æ¢å¤ï¼ï¼‰\n");
-                printf("è¯·é€‰æ‹©â€œæ˜¯ï¼ˆaï¼‰â€æˆ–â€œå¦ï¼ˆbï¼‰â€ï¼š");
-                scanf("%c", &c);
-            }
-        return n;
-    }
-    if (c == 'b') {
-        printf("å‡ºå‘åœ°ï¼š");
-        scanf("%s", qidian);
-        for (i = 0; i < m; i++)
-            if (strcat(st[i].qidian, qidian) == 0) {
-                printf("è¦åˆ é™¤çš„é¡¹ä¸ºï¼š%s%s%s%s%s%d", &st[i].num, &st[i].qidian, &st[i].zhongdian, &st[i].startime,
-                       &st[i].endtime, &st[i].count);
-                printf("ä½ ç¡®å®šè¦åˆ é™¤å—ï¼Ÿï¼ˆåˆ é™¤è¿‡åŽï¼Œæ•°æ®å°†ä¸å¯æ¢å¤ï¼ï¼‰\n");
-                printf("è¯·é€‰æ‹©â€œæ˜¯ï¼ˆaï¼‰â€æˆ–â€œå¦ï¼ˆbï¼‰â€ï¼š");
-                scanf("%c", &c);
-                if (c == 'x') {
-                    n--;
-                    for (j = i; j < m; j++)
-                        st[j] = st[j + 1];
-                }
-            }
-        return n;
-    }
-    if (c == 'c') {
-        printf("ç›®çš„åœ°ï¼š");
-        scanf("%s", zhongdian);
-        for (i = 0; i < m; i++)
-            if (strcat(st[i].zhongdian, zhongdian) == 0) {
-                printf("è¦åˆ é™¤çš„é¡¹ä¸ºï¼š%s%s%s%s%s%d", &st[i].num, &st[i].qidian, &st[i].zhongdian, &st[i].startime,
-                       &st[i].endtime, &st[i].count);
-                printf("ä½ ç¡®å®šè¦åˆ é™¤å—ï¼Ÿï¼ˆåˆ é™¤è¿‡åŽï¼Œæ•°æ®å°†ä¸å¯æ¢å¤ï¼ï¼‰\n");
-                printf("è¯·é€‰æ‹©â€œæ˜¯ï¼ˆaï¼‰â€æˆ–â€œå¦ï¼ˆbï¼‰â€ï¼š");
-                scanf("%c", &c);
-                if (c == 'x') {
-                    n--;
-                    for (j = i; j < m; j++)
-                        st[j] = st[j + 1];
-                }
-            }
-        return n;
-    }
-    return n;
-}
-
-void save(int m) {
-    FILE *fp;
-    fp = fopen("c.txt", "w+");
-    if (fp == NULL) {
-        printf("open fail!\n");
-        return;
-    }
-    int i;
-    fprintf(fp, "%d\n", m);
-    for (i = 0; i < m; i++)
-        fprintf(fp, "%s %s %s %s %s %d\n", st[i].num, st[i].qidian, st[i].zhongdian, st[i].startime, st[i].endtime,
-                st[i].count);
-    printf("Save success!\n");
-    fclose(fp);
-}
-
-int init() {
-    FILE *fp;
-    fp = fopen("c.txt", "r");
-    if (fp == NULL) {
-        printf("open fail!\n");
-        return 0;
-    }
-    int i, m;
-    fscanf(fp, "%d", &m);
-    for (i = 0; i < m; i++)
-        fscanf(fp, "%s %s %s %s %s %d\n", st[i].num, st[i].qidian, st[i].zhongdian, st[i].startime, st[i].endtime,
-               st[i].count);
-    printf("Load success!åˆå§‹åŒ–!\n");
-    fclose(fp);
-    return m;
-}
-
-void check(int m) {
-    printf("a:num\nb:qidian\nc:zhongdian\nd:startime\ne:endtime\n");
-    char c;
-    getchar();
-    char num[10], qidian[20], zhongdian[20], startime[20], endtime[20];
-    scanf("%c", &c);
-    if (c == 'a') {
-        int i;
-        printf("num:");
-        scanf("%s", &num);
-        for (i = 0; i <= m; i++) {
-            if (strcmp(num, st[i].num) == 0)break;
-        }
-        printf("num    qidian     zhongdian      startime       endtime    count\n");
-        printf("%s %s %s %s %s %d\n", st[i].num, st[i].qidian, st[i].zhongdian, st[i].startime, st[i].endtime,
-               st[i].count);
-    }
-
-    if (c == 'b') {
-        int i;
-        printf("qidian:");
-        scanf("%s", &qidian[20]);
-        for (i = 0; i <= m; i++) {
-            if (strcmp(st[i].qidian, qidian) == 0)break;
-        }
-        printf("num    qidian     zhongdian      startime       endtime    count\n");
-        printf("%s %s %s %s %s %d\n", st[i].num, st[i].qidian, st[i].zhongdian, st[i].startime, st[i].endtime,
-               st[i].count);
-    }
-
-    if (c == 'c') {
-        int i;
-        printf("zhongdian:");
-        scanf("%s", &zhongdian[20]);
-        for (i = 0; i <= m; i++) {
-            if (strcmp(st[i].zhongdian, zhongdian) == 0)break;
-        }
-        printf("num    qidian     zhongdian      startime       endtime    count\n");
-        printf("%s %s %s %s %s %d\n", st[i].num, st[i].qidian, st[i].zhongdian, st[i].startime, st[i].endtime,
-               st[i].count);
-    }
-
-    if (c == 'd') {
-        int i;
-        printf("startime:");
-        scanf("%s", &startime[20]);
-        for (i = 0; i <= m; i++) {
-            if (strcmp(st[i].startime, startime) == 0)break;
-        }
-        printf("num    qidian     zhongdian      startime       endtime    count\n");
-        printf("%s %s %s %s %s %d\n", st[i].num, st[i].qidian, st[i].zhongdian, st[i].startime, st[i].endtime,
-               st[i].count);
-    }
-
-    if (c == 'e') {
-        int i;
-        printf("endtime:");
-        scanf("%s", &endtime[20]);
-        for (i = 0; i <= m; i++) {
-            if (strcmp(st[i].endtime, endtime) == 0)break;
-        }
-        printf("num    qidian     zhongdian      startime       endtime    count\n");
-        printf("%s %s %s %s %s %d\n", st[i].num, st[i].qidian, st[i].zhongdian, st[i].startime, st[i].endtime,
-               st[i].count);
-    }
-}
-
-
-int main() {
-    printf("\n\n*******WELCOME******\n\n");
-    system("pause");
-    int num = 0;
-    num = init();
-    while (1) {
-        switch (menu()) {
+int main()
+{
+    LinkList L,lb;
+    DataType x;
+    int n,i,len;
+    int ch2;
+    do
+    {
+        Menu();
+        scanf("%d",&ch2);
+        //getchar();
+        switch(ch2)
+        {
             case 1:
-                num = input(num);
+                InitList();
+                printf("ÇëÊäÈëÏßÐÔ±íµÄ¸öÊý£º");
+                scanf("%d",&n);
+                CreateListH(&L,n);
+                printf("½¨Á¢µÄÏßÐÔ±ílaÎª£º");
+                DispList(&L);
                 break;
             case 2:
-                disp(num);
+                InitList();
+                printf("ÇëÊäÈëÏßÐÔ±íµÄ¸öÊý£º");
+                scanf("%d",&n);
+                CreateList(&L,n);
+                printf("½¨Á¢µÄÏßÐÔ±ílaÎª£º");
+                DispList(&L);
                 break;
-            case 3:
-                sort(num);
-                disp(num);
-                break;
+//			case 3:
+//				len=LengthList(&L);
+//				printf("µ±Ç°ÏßÐÔ±íµÄ³¤¶ÈÎª£º%d\n",len);
+//				if(len==0)
+//					printf("µ±Ç°ÏßÐÔ±íÎª¿Õ!");
+//				else
+//					printf("µ±Ç°ÏßÐÔ±í²»Îª¿Õ!");
+//				break;
             case 4:
-                num = input(num);
-                disp(num);
+                printf("ÇëÊäÈëÒª²é¿´±íÖÐÔªËØÎ»ÖÃ(´Ó1¿ªÊ¼)£º");
+                scanf("%d",&i);
+                SearchList(&L,i);
+                DispList(&L);
+//				if(se)
+//					printf("µ±Ç°ÏßÐÔ±íµÚ%d¸öÔªËØµÄÖµÎª£º%d",i,se);
+//				else
+//					printf("ÊäÈëµÄÎ»ÖÃ´íÎó£¡");
                 break;
             case 5:
-                num = del(num);
-                disp(num);
+                printf("ÇëÊäÈëÒª²éÕÒµÄÔªËØµÄÖµÎª£º");
+                scanf("%d",&x);
+                Locate(&L,x);
+//				loc=Locate(&L,x);
+//				if(loc<lengthList(&L))
+//					printf("²éÕÒÔªËØÖµÎª%dµÄÎ»ÖÃÎª:%d",x,loc);
+//				else
+//					printf("¸Ã±íÖÐÎÞ´ËÔªËØ£¡");
+                DispList(&L);
                 break;
             case 6:
-                save(num);
+                printf("ÇëÊäÈëÒª²åÈëµÄÎ»ÖÃ£º");
+                scanf("%d",&i);
+                printf("ÇëÊäÈëÒª²åÈëÎ»ÖÃµÄÔªËØÖµ:");
+                scanf("%d",&x);
+                InsList(&L,i,x);
+//				if(InsList(&L,i,x))
+//				{
+//					printf("ÒÑ³É¹¦ÔÚµÚ%dµÄÎ»ÖÃ²åÈë%d£¬²åÈëºóµÄÏßÐÔ±íÎª£º\n",i,x);
+//					DispList(&L);
+//				}
+//				else
+//					printf("ÊäÈë²åÈëµÄ²ÎÊý´íÎó£¡");
+                DispList(&L);
                 break;
             case 7:
-                check(num);
+                printf("ÇëÊäÈëÒªÉ¾³ýÔªËØµÄÎ»ÖÃ£º");
+                scanf("%d",&i);
+                DelList(&L,i);
+//				if(DelList(&L,i))
+//				{
+//					printf("ÒÑ³É¹¦ÔÚµÚ%dµÄÎ»ÖÃÉÏÉ¾³ý%d,É¾³ýºóµÄÏßÐÔ±íÎª£º\n",i,x);
+//					DispList(&L);
+//				}
+//				else
+//					printf("\nÊäÈëÉ¾³ýµÄ²ÎÊý´íÎó£¡");
+                DispList(&L);
+                break;
+            case 8:
+                InitList();
+                printf("ÇëÊäÈëÏßÐÔ±íµÄ¸öÊý£º");
+                scanf("%d",&n);
+                CreateListH(&L,n);
+                printf("½¨Á¢µÄÏßÐÔ±ílbÎª£º");
+                DispList(&L);
+                break;
+            case 9:
+                InitList();
+                printf("ÇëÊäÈëÏßÐÔ±íµÄ¸öÊý£º");
+                scanf("%d",&n);
+                CreateList(&L,n);
+                printf("½¨Á¢µÄÏßÐÔ±ílbÎª£º");
+                DispList(&L);
+                break;
+            case 3:
+                Bridge(&L,&lb);
                 break;
             case 0:
-                exit(0);
+                printf("³É¹¦ÍË³ö");
+                break;
             default:
-                printf("your choice error!\n");
+                printf("ÊäÈëÓÐÎó,ÇëÊäÈë0~10½øÐÐÑ¡Ôñ£¡");
         }
-        system("pause");
-        system("cls");
-    }
-
+//		if(ch2!='0')
+//		{
+//			printf("\n°´»Ø³µ¼ü¼ÌÐø£¬°´ÈÎÒâ¼ü·µ»ØÖ÷²Ëµ¥£¡\n");
+//			//getchar();
+//			a=getchar();
+//			if(a!='\xA')
+//			{
+//				getchar();ch1='n';
+//			}
+//		}
+    }while(ch2);
 }
+
+//LinkList *InitList()
+//
+//void CreateListH(LinkList *head,int n)
+//
+//void CreateList(LinkList *head,int n)
+//
+//int LengthList(LinkList *head)
+//
+//void Locate(LinkList *head,DataType x)
+//
+//void SearchList(LinkList *head,int i)
+//
+//void InsList(LinkList *head,int i,DataType x)
+//
+//void DelList(LinkList *head,int i)
+//
+//void DispList(LinkList *head)
