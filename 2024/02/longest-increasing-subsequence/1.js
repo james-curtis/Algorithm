@@ -14,18 +14,19 @@ function sum(arr) {
  * @return {number}
  */
 var lengthOfLIS = function (nums) {
-    const dp = Array.from({length: nums.length}).map(e => Array.from({length: nums.length}).fill(0));
-    for (let i = 0; i < nums.length; i++) {
-        for (let j = i; j < nums.length; j++) {
-            if (nums[i] <= nums[j]) {
-                dp[i][j]++;
-                continue
+    /**
+     * @type {number[]}
+     */
+    const dp = Array.from({length: nums.length}).fill(1);
+    for (let i = 1; i < nums.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[j] < nums[i]) {
+                dp[i] = Math.max(dp[j] + 1, dp[i])
             }
-            dp[i][j] = dp[i][j - 1]
         }
     }
 
-    return Math.max(...dp.flat(2))
+    return Math.max(...dp)
 };
 
 console.log(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
