@@ -6,6 +6,7 @@
  */
 var sortArray = function (nums) {
     myQuick();
+    return nums;
 
     function bubble() {
         for (; ;) {
@@ -51,7 +52,7 @@ var sortArray = function (nums) {
             let mid = left;
             for (let i = left + 1; i <= right; i++)
                 if (nums[i] < nums[left])
-                    [nums[i], nums[++mid]] = [nums[mid], nums[i]];
+                    [nums[i], nums[mid]] = [nums[++mid], nums[i]];
             [nums[left], nums[mid]] = [nums[mid], nums[left]];
             sort(0, mid - 1);
             sort(mid + 1, right);
@@ -65,8 +66,8 @@ var sortArray = function (nums) {
 
 
 nums = [3, 4, 1, 2, 5, 0]
+nums = [-2, 3, -5]
 console.log(sortArray(nums));
-console.log(nums)
 
 
 
