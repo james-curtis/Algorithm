@@ -5,6 +5,7 @@
  * @return {number[]}
  */
 var sortArray = function (nums) {
+    quick();
 
     function bubble() {
         for (; ;) {
@@ -21,11 +22,33 @@ var sortArray = function (nums) {
         }
         return nums;
     }
-    
+
     function merge() {
 
     }
+
+    function quick() {
+        function sort(left, right) {
+            if (left >= right) return;
+            let lt = left, pVal = nums[left];
+            for (let i = left + 1; i <= right; i++) {
+                if (nums[i] < pVal) {
+                    lt++;
+                    [nums[lt], nums[i]] = [nums[i], nums[lt]];
+                }
+            }
+            [nums[left], nums[lt]] = [nums[lt], nums[left]];
+            sort(left, lt - 1);
+            sort(lt + 1, right);
+        }
+
+        sort(0, nums.length - 1);
+    }
+
+
 };
 
-nums = [5, 1, 1, 2, 0, 0]
+
+nums = [3, 4, 1, 2, 5, 0]
 console.log(sortArray(nums));
+console.log(nums)
