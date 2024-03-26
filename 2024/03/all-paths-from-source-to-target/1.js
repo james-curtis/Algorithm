@@ -62,10 +62,17 @@ var allPathsSourceTarget = function (graph) {
         return {dist, path}
     }
 
-    floyd(matrix);
+    const {dist, path} = floyd(matrix);
+    console.log(dist, path);
 
-    let ans = [];
-    // 好像不行了，只能找到最短路
-
-
+    const ans = [0];
+    console.log(`0 -> n-1 最短长度 ${dist[0][matrix.length - 1]}`);
+    for (let i = 0; i !== matrix.length - 1;) {
+        i = path[i][matrix.length - 1];
+        ans.push(i);
+    }
+    console.log(`最短路径 ${ans.join('->')}`)
 };
+
+graph = [[4, 3, 1], [3, 2, 4], [3], [4], []]
+allPathsSourceTarget(graph)
